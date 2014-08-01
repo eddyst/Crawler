@@ -3,22 +3,19 @@
 #include <LCDKeypad.h>
 #include <SPI.h>
 #include <RH_NRF24.h>
-
+#include "Joy.h"
 // initialize the library with the numbers of the interface pins
 //LCDKeypad lcd;
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-const uint32_t timRadioIntervall = 1000000;
-static uint32_t timRadio = 0-timRadioIntervall;
+const uint32_t timRadioMinIntervall =   20000;
+const uint32_t timRadioMaxIntervall = 1000000;
+static uint32_t timRadio = 0-timRadioMaxIntervall;
 
-int pinLX = A1;
-int pinLY = A2;
-byte joyLX = 258;
-byte joyLY = 254;
-int pinRX = A3;
-int pinRY = A6;
-byte joyRX = 258;
-byte joyRY = 254;
+Joy joyLX (A1);
+Joy joyLY (A2);
+Joy joyRX (A3);
+Joy joyRY (A6);
 
 void setup() {
   Serial.begin(57600);
@@ -29,23 +26,19 @@ void setup() {
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print("Spiel mit mir!");
-  pinMode(pinLX, INPUT);
-  pinMode(pinLY, INPUT);
-  pinMode(pinRX, INPUT);
-  pinMode(pinRY, INPUT);
+  pinMode(joyLX.pin(), INPUT);
+  pinMode(joyLY.pin(), INPUT);
+  pinMode(joyRX.pin(), INPUT);
+  pinMode(joyRY.pin(), INPUT);
   analogWrite(3,200);
 }
 
-void radioSend(byte Message, byte Value ) 
+void radioSend() 
 {
 	  timRadio = micros();
     Serial.print(timRadio);
-    Serial.print(" - Sending: (");
-    Serial.print(Message);
-    Serial.print(", ");
-    Serial.print(Value);
-    Serial.print(") ");Serial.print(micros()-timRadio);
-    uint8_t data[] = {Message, Value};
+    Serial.print(" - Sending: ");
+    uint8_t data[] = {1, joyLX.pos(), joyLY.pos(), joyRX.pos(), joyRY.pos()};
     Serial.print("; ");Serial.print(micros()-timRadio);
     // Send a message 
     
@@ -53,13 +46,9 @@ void radioSend(byte Message, byte Value )
     Serial.println("ns");
 }
 
-void joyCheck(int Pin, byte &joyVar, byte Msg) 
+void joyCheck(Joy &joy) 
 { 
-  byte joyNew = map(analogRead(Pin),0,1023,0,255);
-	if (joyNew != joyVar) {
-    radioSend(Msg,joyNew);
-    joyVar = joyNew;
-  }  
+  joy.setPos(map(analogRead(joy.pin()),0,1023,0,255));
 }
 
 void lcdPrintByte(byte joyVar) {
@@ -76,23 +65,28 @@ void lcdPrintByte(byte joyVar) {
 void loop() {
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
-  joyCheck(pinLX, joyLX, 10);
-  joyCheck(pinLY, joyLY, 11);
-  joyCheck(pinRX, joyRX, 21);
-  joyCheck(pinRY, joyRY, 22);
-
+  joyCheck(joyLX);
+  joyCheck(joyLY);
+  joyCheck(joyRX);
+  joyCheck(joyRY);
+  
   lcd.setCursor(0, 1);
-  lcdPrintByte(joyLX);
+  lcdPrintByte(joyLX.pos());
   lcd.print(F(":"));
-  lcdPrintByte(joyLY);
+  lcdPrintByte(joyLY.pos());
   lcd.print(F("  "));
-  lcdPrintByte(joyRX);
+  lcdPrintByte(joyRX.pos());
   lcd.print(F(":"));
-  lcdPrintByte(joyRY);
-
-  if ( micros() - timRadio >= timRadioIntervall) {
-    radioSend(0, 0); //Send a Keep alive Msg
+  lcdPrintByte(joyRY.pos());
+  
+  if (   (   micros() - timRadio >= timRadioMinIntervall 
+          && (   joyLX.changed
+              || joyLY.changed
+              || joyRX.changed
+              || joyRY.changed )                      )
+      || (micros() - timRadio >= timRadioMaxIntervall )
+     ) {
+    radioSend();
   }
-
 }
 

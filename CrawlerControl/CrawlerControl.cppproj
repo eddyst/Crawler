@@ -240,6 +240,12 @@
     <Folder Include="Visual Micro\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Joy.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Joy.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Visual Micro\.CrawlerControl.vsarduino.h">
       <SubType>compile</SubType>
     </Compile>
