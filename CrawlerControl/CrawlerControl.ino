@@ -7,7 +7,8 @@
 // initialize the library with the numbers of the interface pins
 //LCDKeypad lcd;
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
-
+// Singleton instance of the radio driver
+RH_NRF24 nrf24(A7,10);
 const uint32_t timRadioMinIntervall =   20000;
 const uint32_t timRadioMaxIntervall = 1000000;
 static uint32_t timRadio = 0-timRadioMaxIntervall;
@@ -21,6 +22,13 @@ void setup() {
   Serial.begin(57600);
   while (!Serial)
     ; // wait for serial port to connect. Needed for Leonardo only
+  if (!nrf24.init())
+    Serial.println("init failed");
+  // Defaults after init are 2.402 GHz (channel 2), 2Mbps, 0dBm
+  if (!nrf24.setChannel(1))
+    Serial.println("setChannel failed");
+  if (!nrf24.setRF(RH_NRF24::DataRate2Mbps, RH_NRF24::TransmitPower0dBm))
+    Serial.println("setRF failed");
 
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -34,14 +42,17 @@ void setup() {
 }
 
 void radioSend() 
-{
-	  timRadio = micros();
+{  timRadio = micros();
     Serial.print(timRadio);
     Serial.print(" - Sending: ");
     uint8_t data[] = {1, joyLX.pos(), joyLY.pos(), joyRX.pos(), joyRY.pos()};
     Serial.print("; ");Serial.print(micros()-timRadio);
-    // Send a message 
-    
+    // Send a message to nrf24_server
+    nrf24.send(data, sizeof(data));
+    Serial.print("; ");Serial.print(micros()-timRadio);
+    nrf24.waitPacketSent();
+    Serial.print("; ");Serial.print(micros()-timRadio);
+    nrf24.setModeRx();
     Serial.print("; ");Serial.print(micros()-timRadio);
     Serial.println("ns");
 }
@@ -88,5 +99,14 @@ void loop() {
      ) {
     radioSend();
   }
+  uint8_t buf[RH_NRF24_MAX_MESSAGE_LEN];
+  uint8_t len = sizeof(buf);
+  if (nrf24.available()) {
+    // If there is a reply message for us now
+    if (nrf24.recv(buf, &len))
+    {
+      Serial.print("got reply: ");
+      Serial.println((char*)buf);
+    }    }
 }
 
