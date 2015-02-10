@@ -28,15 +28,15 @@
     <BootSegment>0</BootSegment>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.3.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.3.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -69,8 +69,10 @@
             <Value>D:\arduino\arduino-akt\projects\libraries\LCDKeypad\utility</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI\utility</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead\utility</Value>
             <Value>D:\arduino\arduino-akt\libraries</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries</Value>
             <Value>C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers</Value>
@@ -110,8 +112,10 @@
             <Value>D:\arduino\arduino-akt\projects\libraries\LCDKeypad\utility</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI\utility</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead\utility</Value>
             <Value>D:\arduino\arduino-akt\libraries</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries</Value>
             <Value>C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers</Value>
@@ -165,8 +169,10 @@
             <Value>D:\arduino\arduino-akt\projects\libraries\LCDKeypad\utility</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI\utility</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead\utility</Value>
             <Value>D:\arduino\arduino-akt\libraries</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries</Value>
             <Value>C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers</Value>
@@ -206,8 +212,10 @@
             <Value>D:\arduino\arduino-akt\projects\libraries\LCDKeypad\utility</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries\SPI\utility</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead</Value>
-            <Value>D:\arduino\arduino-akt\libraries\RadioHead\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\estEEprom\utility</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead</Value>
+            <Value>D:\arduino\arduino-akt\projects\libraries\RadioHead\utility</Value>
             <Value>D:\arduino\arduino-akt\libraries</Value>
             <Value>D:\arduino\arduino-akt\hardware\arduino\avr\libraries</Value>
             <Value>C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers</Value>

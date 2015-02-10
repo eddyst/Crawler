@@ -1,3 +1,9 @@
 *.7z
 CrawlerControl/Debug/
 CrawlerControl/Visual Micro/
+*.ino.orig
+*.cpp.o
+*.cpp.d
+*.c.d
+*.c.o
+CrawlerControl/Release/
